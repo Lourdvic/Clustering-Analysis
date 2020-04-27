@@ -3,6 +3,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import csv
 
 # load the dataset and print the first lines
 data = pd.read_csv('./data/customers.csv')
@@ -59,17 +60,27 @@ while(diff != 0):
     else:
         diff = (centroids_new["LoanAmount"] - centroids["LoanAmount"]).sum() +\
                (centroids_new["ApplicantIncome"] - centroids["ApplicantIncome"]).sum()
-        print(diff.sum())
+        #print(diff.sum())
     centroids = x.groupby(["Cluster"]).mean()[["LoanAmount", "ApplicantIncome"]]
 
 # Plot the clusters
 
-color=['purple','yellow','green']
-for K in range(k):
-    data=x[x["Cluster"]==K+1]
-    plt.scatter(data["ApplicantIncome"],data["LoanAmount"],c=color[K])
-plt.scatter(centroids["ApplicantIncome"],centroids["LoanAmount"],c='red')
+with open('result.csv', 'w', newline='') as result:
+    thewriter = csv.writer(result)
+    thewriter.writerow(['Cluster', 'ApplicantIncome', 'LoanAmount'])
+
+    color = ['purple','yellow','green']
+    for K in range(k):
+        data = x[x["Cluster"] == K + 1]
+        plt.scatter(data["ApplicantIncome"], data["LoanAmount"], c = color[K])
+        thewriter.writerow(data['Cluster'])
+        thewriter.writerow(data['ApplicantIncome'])
+        thewriter.writerow(data['LoanAmount'])
+
+plt.scatter(centroids["ApplicantIncome"], centroids["LoanAmount"], c = 'red')
 plt.xlabel('Income')
 plt.ylabel('Loan Amount (In Thousands)')
-plt.show()
+plt.savefig("plot.png")
+
+
 
