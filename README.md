@@ -18,7 +18,14 @@ Quelle stratégie d'offre peut mettre en pace la banque en fonction ddes revenus
 
 ## Clustering: algorithme k-means
 
+Nous décidons de faire une analyse de cluster afin de trouver si nous pouvons regrouper les clients en différents groupes afin de pouvoir proposer des offres ciblées selon le profil du client.
+Nous utiliserons donc les colonnes :
+« LoanAmount » qui comprends les montant de prêt en milliers
+« AnnualIncome » qui comprends le revenu annuel de chaque client
+
 Tout d'abord nous sélectionnons des points aléatoirement. Ce nombre de points est égal au nombre de clusters. Le but étant de trouver la distance moyenne la plus petite entre tous les point de ce cluster. Ces points sont appelés des centroïds.
+
+cf: /img/
 
 On calcule ensuite la distance moyenne des points de chaque cluster avec leur centroïdes correspondant.
 
